@@ -1,0 +1,195 @@
+body {
+    margin: 0;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.fixing-pos {
+    /* removable class that sets up positioning as fixed in order to cover all page*/
+    position: fixed;
+}
+
+
+/*Score page styles*/
+
+#score-show {
+    font-size: 4.5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2em;
+    background-image: url('../image/titanic.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100%;
+    width: 100%;
+    /* Set up positioning as fixed in order to cover all page*/
+}
+
+#score-show>center>h1 {
+    color: lightgreen;
+    flex-shrink: 1;
+}
+
+#restart-btn {
+    /*align to center the button*/
+    margin-inline: 60vh;
+    margin-bottom: 20vh;
+    padding: 0.5em;
+    flex-shrink: 1;
+    font-size: 3vh;
+    border: 2px solid red;
+    text-align: center;
+    background: linear-gradient(90deg, lightgreen, cyan);
+}
+
+#restart-btn:active {
+    opacity: 0.5;
+}
+
+#return-btn {
+    /*align to center the button*/
+    margin-inline: 60vh;
+    padding: 0.5em;
+    flex-shrink: 1;
+    font-size: 3vh;
+    border: 2px solid red;
+    text-align: center;
+    background: linear-gradient(90deg, lightgreen, cyan);
+}
+
+#return-btn:active {
+    opacity: 0.5;
+}
+
+
+/*Game page styles*/
+
+.navi-bar {
+    /*Eliminate the bullets of the unordered list*/
+    list-style: none;
+    margin: 0;
+    background-color: midnightblue;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 100%;
+    border: 2px solid green;
+    justify-content: space-evenly;
+}
+
+
+/*target the element "li" inside the class "navi-bar"*/
+
+.navi-bar>li {
+    margin: 1em;
+    padding: 0.5em;
+    flex-grow: 1;
+    font-size: 3vh;
+    border: 2px solid red;
+    text-align: center;
+    background: linear-gradient(90deg, lightgreen, cyan);
+}
+
+#board {
+    /*Div containing the board*/
+    display: flex;
+    justify-content: center;
+    padding: 2em;
+    background-image: url('../image/titanic.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100%;
+    width: 100%;
+}
+
+#board-grid {
+    flex-shrink: 1;
+}
+
+
+/*Splash Page styles*/
+
+#splash-page {
+    font-size: 4.5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2em;
+    background-image: url('../image/titanic.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100%;
+    width: 100%;
+    /* Set up positioning as fixed in order to cover all page*/
+}
+
+#splash-page>center>h1 {
+    font-size: 7vh;
+    color: lightgreen;
+}
+
+#play-btn {
+    /*align to center the button*/
+    margin-inline: 60vh;
+    padding: 0.5em;
+    flex-shrink: 1;
+    font-size: 3vh;
+    border: 2px solid red;
+    text-align: center;
+    background: linear-gradient(90deg, lightgreen, cyan);
+}
+
+#play-btn:active {
+    opacity: 0.5;
+}
+
+#select-size {
+    margin-inline: 50vh;
+    margin-bottom: 5vh;
+    padding: 0.5em;
+    border: 2px dotted yellow;
+    flex-shrink: 1;
+    color: lightgreen;
+    text-align: center;
+}
+
+.mine-cell {
+    background: radial-gradient(red, transparent);
+    background-size: cover;
+    width: 4.5vh;
+    height: 4.5vh;
+    border-radius: 8px
+}
+
+.mine-cell:hover,
+.mine-cell32:hover {
+    opacity: 0.5;
+}
+
+.mine-cell32 {
+    background: radial-gradient(red, transparent);
+    background-size: cover;
+    width: 2.5vh;
+    height: 2.5vh;
+    border-radius: 8px
+}
+
+
+/*highlight selected button until another is selected*/
+
+.mine-cell:active,
+.mine-cell32:active {
+    background: radial-gradient(blue, transparent);
+}
+
+#over-btn {
+    flex-shrink: 1;
+    font-size: 3vh;
+    border: 2px solid red;
+    text-align: center;
+    background: linear-gradient(90deg, aliceblue, cyan);
+}
+
+#over-btn:active {
+    opacity: 0.5;
+}
