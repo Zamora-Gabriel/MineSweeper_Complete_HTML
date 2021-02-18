@@ -153,7 +153,7 @@ body {
     text-align: center;
 }
 
-.mine-cell {
+.unknown-cell {
     background: radial-gradient(red, transparent);
     background-size: cover;
     width: 4.5vh;
@@ -161,12 +161,23 @@ body {
     border-radius: 8px
 }
 
-.mine-cell:hover,
-.mine-cell32:hover {
+.mine-cell {
+    background: radial-gradient(red, transparent);
+    background-size: cover;
+    width: 4.5vh;
+    height: 4.5vh;
+    background-image: url('../image/sea_mine.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px
+}
+
+.unknown-cell:hover,
+.unknown-cell:hover {
     opacity: 0.5;
 }
 
-.mine-cell32 {
+.unknown-cell32 {
     background: radial-gradient(red, transparent);
     background-size: cover;
     width: 2.5vh;
@@ -177,8 +188,8 @@ body {
 
 /*highlight selected button until another is selected*/
 
-.mine-cell:active,
-.mine-cell32:active {
+.unknown-cell:active,
+.unknown-cell:active {
     background: radial-gradient(blue, transparent);
 }
 

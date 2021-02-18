@@ -22,7 +22,10 @@ export default class Score {
         let overElement = document.querySelector("#over-btn");
 
         overElement.addEventListener('click', event => {
+            console.log("Why score is: " + numscore);
             this.runscore(numscore);
+            console.log("Why score is: " + numscore);
         });
+
     }
 }
