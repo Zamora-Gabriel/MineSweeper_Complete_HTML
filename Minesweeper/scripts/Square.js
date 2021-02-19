@@ -7,10 +7,27 @@ export default class Square {
         this.adjacentMines = 0;
         //this.location
         this.mine = mine; //new Mine
+        this.revealed = false;
     }
 
     get hasMine() {
         return this._hasMine;
+    }
+
+    get numAdjMines() {
+        return this.adjacentMines;
+    }
+
+    Revealing() {
+        this.revealed = true;
+    }
+
+    isRevealed() {
+        return this.revealed;
+    }
+
+    PlusAdjMines() {
+        this.adjacentMines++;
     }
 
     addMine() {

@@ -3,6 +3,8 @@
 
 import Minefield from "./Minefield.js";
 
+import Score from "./Score.js";
+
 export default class Game {
     constructor() {
 
@@ -15,6 +17,8 @@ export default class Game {
 
         this.minecount = 10;
 
+        this.scorePage = new Score();
+
         this.done = false;
         //Flag for size
         this.sizerr = true;
@@ -26,7 +30,11 @@ export default class Game {
 
         //shields
         this.shields = 0;
+
+        //gameover flag
+        this.gameOver = false; //State of game
     }
+
 
     get UserScore() {
         return this.score;
@@ -62,21 +70,28 @@ export default class Game {
         //Clear Shields
         this.shields = 0;
         $("#shield-count").html(`${this.shields}`)
+
+        //Clear flags
+        this.gameOver = false;
     }
 
     changeMineCount() {
         switch (this.board.size) {
             case "4":
                 this.minecount = 2;
+                this.board.timecount = 20;
                 break;
             case "8":
                 this.minecount = 4;
+                this.board.timecount = 50;
                 break;
             case "15":
                 this.minecount = 10;
+                this.board.timecount = 90;
                 break;
             case "30":
                 this.minecount = 20;
+                this.board.timecount = 120;
                 break;
         }
     }
@@ -87,9 +102,33 @@ export default class Game {
         while (!this.done) {
             this.reset();
             this.render();
-            this.update();
+            this.timing();
         }
         this.done = false;
+    }
+    update(seconds) {
+        //timeout
+        if (seconds <= 0) {
+            this.gameOver = true;
+            console.log("SHOOT");
+        }
+    }
+
+    timing() {
+        let secondCount = this.board.timecount;
+        const $timerE1 = $("#timer-count");
+        //Predefined objects
+        let timer = window.setInterval(() => {
+            //TODO: what do we do each second - update the timer
+            $timerE1.html(secondCount);
+            secondCount--;
+
+            this.update(secondCount);
+            if (this.gameOver) {
+                window.clearInterval(timer);
+                this.scorePage.runscore();
+            }
+        }, 1000);
     }
 
 
@@ -115,54 +154,140 @@ export default class Game {
     }
 
     updateCellHandlers() {
-        //TODO: Handle the user clicking one of the game map squares
+        //Handle the user clicking one of the game map squares
         //Find the clicked thing
         $(".square").on('click', event => {
             const $theE1 = $(event.target);
             const id = $theE1.attr("id");
-            $theE1.addClass("show-indicator");
 
-            // TODO: check if mine is here
-            const row = $theE1.data("row");
-            const col = $theE1.data("col");
-            console.log('Clicked cell at ' + row + ", " + col);
+            //Check if cell has or not a flag
+            if (!(this.CheckFlag($theE1))) {
 
-            //if mine GAME OVER
-            const selectedSquare = this.minefield.squareAt(row, col);
+                const row = $theE1.data("row");
+                const col = $theE1.data("col");
 
-            if (selectedSquare.hasMine) {
-                console.log("Kaboom");
-                //Check the size to remove the right classes
-                if (this.board.size < 30) {
-                    $theE1.removeClass("unknown-cell");
-                    $theE1.addClass("mine-cell");
+                const selectedSquare = this.minefield.squareAt(row, col);
+                // Check if mine is here (Debugging)
 
-                    return;
+                console.log('Clicked cell at ' + row + ", " + col);
+                //END debugging
+
+                //if isn't revealed
+                if (!(selectedSquare.isRevealed())) {
+                    this._reveal(selectedSquare, $theE1);
                 }
-
             }
-            //TODO: ADD hasAdjacent method
-            if (selectedSquare.hasAdjacent()) {
-                const count = selectedSquare.adjacentMines;
-                const $innerDiv = $("<div" + selectedSquare.adjacentMines + "</div>");
-                //const $innerDiv = $("<div" + selectedSquare.adjacentMines + "</div>");
-                $innerDiv.addClass(`color-${count}`);
-                $theE1.append($innerDiv);
 
-            }
-            this.score++;
-            console.log("Score is: " + this.score);
-
-            $("#score-count").html(`${this.score}`);
-            //if no mine, are there adjacent mines? if so, show count
-            //if no adjacent mines, clear squares until found mines
         });
 
         $(".square").on("contextmenu", event => {
+            //Right click
             event.preventDefault();
 
-            //TODO: what happens on the right click....
+            const $theE1 = $(event.target);
+            const id = $theE1.attr("id");
+
+
+            //Debugging
+            console.log("Flag detected");
+
+            //Check if cell has already a flag
+            if (this.CheckFlag($theE1)) {
+                //Check the size to remove and add the right classes
+                if (this.board.size < 30) {
+                    $theE1.addClass("unknown-cell");
+                    $theE1.removeClass("flag-cell");
+                    return;
+                }
+                $theE1.addClass("unknown-cell32");
+                $theE1.removeClass("flag-cell32");
+                return;
+            }
+
+            //Check the size to remove and add the right classes
+            if (this.board.size < 30) {
+                $theE1.removeClass("unknown-cell");
+                $theE1.addClass("flag-cell");
+                return;
+            }
+            $theE1.removeClass("unknown-cell32");
+            $theE1.addClass("flag-cell32");
+            return;
         });
+    }
+
+
+    _reveal(selectedSquare, $theE1) {
+
+        //Reveal the contents of the cell
+
+        if (selectedSquare.hasMine) {
+
+            //Debugging
+            console.log("Mine detected");
+
+            //Check the size to remove the right classes
+            if (this.board.size < 30) {
+                $theE1.removeClass("unknown-cell");
+                $theE1.addClass("mine-cell");
+
+                //sound effect: Explosion
+                this.MineExplosion();
+
+                //TODO: Shield
+                this.gameOver = true;
+
+                return;
+            }
+
+            $theE1.removeClass("unknown-cell32");
+
+            $theE1.addClass("mine-cell32");
+
+            //sound effect: Explosion
+            this.MineExplosion();
+
+            this.scorePage.runscore();
+
+            return;
+        }
+        //ADD hasAdjacent method
+        if (selectedSquare.hasAdjacent()) {
+            //Are there adjacent mines? if so, show count
+            const count = selectedSquare.adjacentMines;
+            const $innerDiv = $("<div" + selectedSquare.adjacentMines + "</div>");
+
+        }
+
+        selectedSquare.Revealing();
+        this._SquareReveal(selectedSquare);
+        $theE1.removeClass("unknown-cell");
+        $theE1.addClass(this._SquareReveal(selectedSquare));
+        $theE1.append(`${selectedSquare.adjacentMines}`);
+
+        this.score++;
+        console.log("Score is: " + this.score);
+
+        $("#score-count").html(`${this.score}`);
+
+        //if no adjacent mines, clear squares until mines are found (adjmines > 0)
+        //TODO:BFS/DFS to clear
+    }
+
+    //Check if the cell has flags
+    CheckFlag($theE1) {
+        if ($theE1.hasClass("flag-cell") || $theE1.hasClass("flag-cell32")) {
+            return true;
+        }
+    }
+
+    MineExplosion() {
+        /*var ExplosionSound = new buzz.sound("sounds/Explosion.wav", {
+            preload: true,
+        });
+
+
+        ExplosionSound.play()*/
     }
 
     resizeGrid() {
@@ -203,7 +328,7 @@ export default class Game {
                     const dataAtt = `data-row= ${row} data-col= ${col}`;
                     markup += `<td class= "square" ><button class="unknown-cell" ${dataAtt} id=${id}><!--c1r1--></button></td>`;
                 } else {
-                    //Assign position data to every cell for 32x24 board size
+                    //Assign position data to every cell for 24x30 board size
                     const id = `square-${row}-${col}`;
                     const dataAtt = `data-row= ${row} data-col= ${col}`;
                     markup += `<td class= "square" ><button class="unknown-cell32" ${dataAtt} id=${id}><!--c1r1--></button></td>`;
@@ -218,11 +343,6 @@ export default class Game {
         markup += "</table>";
         //find the board div, attach to this table
         $("#board").html(markup);
-    }
-
-
-    update() {
-        //Game timer and disabling selected buttons (to be implemented)
     }
 
 
@@ -241,5 +361,16 @@ export default class Game {
         document.querySelector("#score-show").classList.remove("fixing-pos");
         document.querySelector("#minesw-game").hidden = false;
         document.querySelector("#board").classList.add("fixing-pos");
+    }
+
+    _SquareReveal(theSquare) {
+        let classes = "revealed-cell";
+        //Square revealed?
+        if (theSquare.isRevealed) {
+            //Ternary operator value = (Condition ? result_iftrue : result_ifnot);
+            classes += (theSquare.hasMine ? "" : ` color-${theSquare.adj}`);
+        }
+
+        return classes;
     }
 }

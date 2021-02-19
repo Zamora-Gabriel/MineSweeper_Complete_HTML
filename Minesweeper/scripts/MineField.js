@@ -51,7 +51,9 @@ export default class Minefield {
             randRow = Math.floor(Math.random() * (this.rowSize + 1));
             randCol = Math.floor(Math.random() * (this.colSize + 1));
 
-            const selectedSquare = this.squareAt(Math.floor(Math.random() * (this.rowSize + 1)), Math.floor(Math.random() * (this.rowSize + 1)));
+            //Generate random mine
+            const selectedSquare = this.squareAt(randRow, randCol);
+
             //Place mine at row, column, unless mine is altready there
             if (selectedSquare.hasMine) {
                 console.log('Cell has mine already');
@@ -59,6 +61,7 @@ export default class Minefield {
                 continue;
             }
             selectedSquare.addMine();
+
             //Debugging
             console.log('Mine cell at ' + randRow + ", " + randCol);
 
@@ -68,8 +71,52 @@ export default class Minefield {
 
     _computeAdj() {
         //TODO: walk through field, for each square count
+        let colSearch = this.size;
+        let rowSearch = this.size;
+        if (this.size >= 30) {
+            colSearch = this.size;
+            rowSearch = 24;
+        }
 
+        for (let i = 0; i <= rowSearch; i++) {
 
+            for (let j = 0; j <= colSearch; j++) {
+                //call check function
+                this.CheckAdj(i, j);
+            }
+        }
+
+        console.log("Enter adjacent");
+
+    }
+
+    //TODO: CHECK ERROR
+    CheckAdj(row, col) {
+        if (row > this.rowSize || col > this.colSize) {
+            return;
+        }
+        const selectedSquare = this.squareAt(row, col);
+
+        for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+                if (row + i <= -1 || row + i > this.rowSize || col + j <= -1 || col + j > this.colSize) {
+
+                    continue;
+                }
+
+                //continue if searching itself
+                if (i == 0 && j == 0) {
+                    continue;
+                }
+
+                if (this.field[row + i][col + j].hasMine) {
+                    console.log("HAS MINE!")
+                    selectedSquare.PlusAdjMines();
+                }
+            }
+        }
+
+        console.log(`the number of adj mines in ${row}, ${col} is ${selectedSquare.numAdjMines}`)
     }
 
 }

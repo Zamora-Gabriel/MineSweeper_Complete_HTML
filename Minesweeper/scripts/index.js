@@ -20,8 +20,6 @@ $(document).ready(event => {
 
     //Check buttons
     game.checkbttn();
-    console.log()
-    score.checkover();
     splash.retbttn();
     game.resbttn();
 });

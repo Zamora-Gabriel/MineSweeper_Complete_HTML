@@ -161,6 +161,25 @@ body {
     border-radius: 8px
 }
 
+.revealed-cell {
+    background: radial-gradient(red, transparent);
+    background-size: cover;
+    width: 4.5vh;
+    height: 4.5vh;
+    border-radius: 8px
+}
+
+.flag-cell {
+    background: radial-gradient(red, transparent);
+    background-size: cover;
+    width: 4.5vh;
+    height: 4.5vh;
+    background-image: url('../image/Flag.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px
+}
+
 .mine-cell {
     background: radial-gradient(red, transparent);
     background-size: cover;
@@ -175,14 +194,6 @@ body {
 .unknown-cell:hover,
 .unknown-cell:hover {
     opacity: 0.5;
-}
-
-.unknown-cell32 {
-    background: radial-gradient(red, transparent);
-    background-size: cover;
-    width: 2.5vh;
-    height: 2.5vh;
-    border-radius: 8px
 }
 
 
@@ -203,4 +214,34 @@ body {
 
 #over-btn:active {
     opacity: 0.5;
+}
+
+.unknown-cell32 {
+    background: radial-gradient(red, transparent);
+    background-size: cover;
+    width: 2.5vh;
+    height: 2.5vh;
+    border-radius: 8px
+}
+
+.mine-cell32 {
+    background: radial-gradient(red, transparent);
+    background-size: cover;
+    width: 2.5vh;
+    height: 2.5vh;
+    background-image: url('../image/sea_mine.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px
+}
+
+.flag-cell32 {
+    background: radial-gradient(red, transparent);
+    background-size: cover;
+    background-image: url('../image/Flag.png');
+    background-size: cover;
+    background-position: center;
+    width: 2.5vh;
+    height: 2.5vh;
+    border-radius: 8px
 }

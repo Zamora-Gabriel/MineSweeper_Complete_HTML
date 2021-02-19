@@ -7,25 +7,19 @@ export default class Score {
         this.overclicked = false;
     }
 
-    runscore(numberscore) {
+    runscore(wonFlag) {
         //After game stops hide game page and show score page
         document.querySelector("#minesw-game").hidden = true;
         document.querySelector("#board").classList.remove("fixing-pos");
         document.querySelector("#score-page").hidden = false;
         document.querySelector("#score-show").classList.add("fixing-pos");
-        //Display Score by getting it from game
-        document.querySelector("#result-numb").innerHTML = numberscore;
-    }
 
-    checkover(numscore) {
-        //Provisional transition from game to score by pressing a button 
-        let overElement = document.querySelector("#over-btn");
-
-        overElement.addEventListener('click', event => {
-            console.log("Why score is: " + numscore);
-            this.runscore(numscore);
-            console.log("Why score is: " + numscore);
-        });
-
+        //Display Score by getting it from the game page
+        if (wonFlag) {
+            const scorenum = $("#score-count").html();
+            $("#result-numb").html(`${scorenum}`);
+            return;
+        }
+        $("#result-numb").html(`GAME OVER`);
     }
 }
