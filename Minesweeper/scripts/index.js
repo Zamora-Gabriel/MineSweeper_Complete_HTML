@@ -9,6 +9,7 @@ import Score from './Score.js';
 $(document).ready(event => {
 
     //Main Application
+
     let game = new Game();
     let splash = new Splash();
     let score = new Score();

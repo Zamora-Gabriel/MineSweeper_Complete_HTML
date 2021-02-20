@@ -17,7 +17,7 @@ export default class Score {
         //Display Score by getting it from the game page
         if (wonFlag) {
             const scorenum = $("#score-count").html();
-            $("#result-numb").html(`${scorenum}`);
+            $("#result-numb").html(`You Won! No of clicks: ${scorenum}`);
             return;
         }
         $("#result-numb").html(`GAME OVER`);

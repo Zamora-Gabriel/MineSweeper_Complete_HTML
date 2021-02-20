@@ -8,6 +8,7 @@ export default class Square {
         //this.location
         this.mine = mine; //new Mine
         this.revealed = false;
+        this.flagged = false;
     }
 
     get hasMine() {
@@ -16,6 +17,14 @@ export default class Square {
 
     get numAdjMines() {
         return this.adjacentMines;
+    }
+
+    get Flagged() {
+        return this.flagged;
+    }
+
+    ToggleFlag() {
+        this.flagged = !this.flagged;
     }
 
     Revealing() {

@@ -162,7 +162,7 @@ body {
 }
 
 .revealed-cell {
-    background: radial-gradient(red, transparent);
+    background: lightgray;
     background-size: cover;
     width: 4.5vh;
     height: 4.5vh;
@@ -216,6 +216,9 @@ body {
     opacity: 0.5;
 }
 
+
+/***Buttons for 30x24 sized grid***/
+
 .unknown-cell32 {
     background: radial-gradient(red, transparent);
     background-size: cover;
@@ -235,6 +238,14 @@ body {
     border-radius: 8px
 }
 
+.revealed-cell32 {
+    background: lightgray;
+    background-size: cover;
+    width: 2.5vh;
+    height: 2.5vh;
+    border-radius: 8px
+}
+
 .flag-cell32 {
     background: radial-gradient(red, transparent);
     background-size: cover;
@@ -244,4 +255,39 @@ body {
     width: 2.5vh;
     height: 2.5vh;
     border-radius: 8px
+}
+
+
+/***Text color for the revealed cell numbers***/
+
+.color-1 {
+    color: blue;
+}
+
+.color-2 {
+    color: green;
+}
+
+.color-3 {
+    color: red;
+}
+
+.color-4 {
+    color: purple;
+}
+
+.color-5 {
+    color: brown;
+}
+
+.color-6 {
+    color: darkcyan;
+}
+
+.color-7 {
+    color: black;
+}
+
+.color-8 {
+    color: darkgoldenrod
 }

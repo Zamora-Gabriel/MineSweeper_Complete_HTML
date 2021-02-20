@@ -2,7 +2,6 @@
 'use strict';
 
 import Square from "./Square.js"
-import Mine from "./Mine.js"
 
 export default class Minefield {
     constructor(size = 10, minecount = 10) {
@@ -56,21 +55,24 @@ export default class Minefield {
 
             //Place mine at row, column, unless mine is altready there
             if (selectedSquare.hasMine) {
+                //Debug message
                 console.log('Cell has mine already');
+                //End of debug message
                 counter--;
                 continue;
             }
             selectedSquare.addMine();
 
-            //Debugging
+            //Debug message
             console.log('Mine cell at ' + randRow + ", " + randCol);
+            //End of debug message
 
         }
 
     }
 
     _computeAdj() {
-        //TODO: walk through field, for each square count
+        //walk through field, for each square count
         let colSearch = this.size;
         let rowSearch = this.size;
         if (this.size >= 30) {
@@ -86,11 +88,12 @@ export default class Minefield {
             }
         }
 
-        console.log("Enter adjacent");
-
+        //Debug message
+        console.log("Adjacent count complete");
+        //End of debug message
     }
 
-    //TODO: CHECK ERROR
+
     CheckAdj(row, col) {
         if (row > this.rowSize || col > this.colSize) {
             return;
@@ -110,13 +113,43 @@ export default class Minefield {
                 }
 
                 if (this.field[row + i][col + j].hasMine) {
-                    console.log("HAS MINE!")
+                    //Debug message
+                    console.log("HAS MINE!");
+                    //end debug message
                     selectedSquare.PlusAdjMines();
                 }
             }
         }
+        //Debug message
+        console.log(`the number of adj mines in ${row}, ${col} is ${selectedSquare.numAdjMines}`);
+        //end debug message
+    }
 
-        console.log(`the number of adj mines in ${row}, ${col} is ${selectedSquare.numAdjMines}`)
+    CheckFlaggedCells() {
+
+        let colSearch = this.size;
+        let rowSearch = this.size;
+        let flaggedMines = 0;
+        if (this.size >= 30) {
+            colSearch = this.size;
+            rowSearch = 24;
+        }
+
+        for (let i = 0; i < rowSearch; i++) {
+
+            for (let j = 0; j < colSearch; j++) {
+                //select the square
+                const selectedSquare = this.squareAt(i, j);
+                if (selectedSquare.hasMine && selectedSquare.Flagged) {
+                    flaggedMines++;
+                    //Debug message
+                    console.log(`Flagged mine! Number of mines flagged: ${flaggedMines}`);
+                    //End of debug message
+                }
+            }
+        }
+
+        return flaggedMines;
     }
 
 }
