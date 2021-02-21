@@ -9,6 +9,11 @@ body {
     position: fixed;
 }
 
+.hide {
+    /*hide page*/
+    display: none;
+}
+
 
 /*Score page styles*/
 
@@ -107,14 +112,14 @@ body {
 }
 
 
-/*Splash Page styles*/
+/***Splash Page styles***/
 
-#splash-page {
+#splash-show {
     font-size: 4.5vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 2em;
+    padding: 1em;
     background-image: url('../image/titanic.jpg');
     background-size: cover;
     background-position: center;
@@ -123,9 +128,17 @@ body {
     /* Set up positioning as fixed in order to cover all page*/
 }
 
-#splash-page>center>h1 {
+#splash-show>center>h1 {
     font-size: 7vh;
     color: lightgreen;
+}
+
+#splash-show>center>h6 {
+    margin-inline: 70vh;
+    margin-block-start: 1em;
+    color: silver;
+    background: linear-gradient(90deg, red, blue);
+    border: 2px solid red;
 }
 
 #play-btn {
@@ -143,6 +156,21 @@ body {
     opacity: 0.5;
 }
 
+#instr-btn {
+    /*align to center the button*/
+    margin-inline: 60vh;
+    padding: 0.5em;
+    flex-shrink: 1;
+    font-size: 3vh;
+    border: 2px solid red;
+    text-align: center;
+    background: linear-gradient(90deg, lightgreen, cyan);
+}
+
+#instr-btn:active {
+    opacity: 0.5;
+}
+
 #select-size {
     margin-inline: 50vh;
     margin-bottom: 5vh;
@@ -152,6 +180,9 @@ body {
     color: lightgreen;
     text-align: center;
 }
+
+
+/***Board and cells styles***/
 
 .unknown-cell {
     background: radial-gradient(red, transparent);
@@ -290,4 +321,54 @@ body {
 
 .color-8 {
     color: darkgoldenrod
+}
+
+
+/***instructions***/
+
+#instr-show {
+    font-size: 4.5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2em;
+    background-image: url('../image/titanic.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100%;
+    width: 100%;
+    /* Set up positioning as fixed in order to cover all page*/
+}
+
+#instr-show>center>h1 {
+    color: lightgreen;
+    flex-shrink: 1;
+}
+
+#instr-details {
+    margin-inline: 50vh;
+    margin-bottom: 5vh;
+    padding: 0.5em;
+    border: 2px dotted yellow;
+    background: rgba(43, 11, 185, 0.582);
+    font-size: 3vh;
+    flex-shrink: 1;
+    color: lightgreen;
+    text-align: center;
+}
+
+#instrToSplash-btn {
+    /*align to center the button*/
+    margin-inline: 60vh;
+    margin-bottom: 20vh;
+    padding: 0.5em;
+    flex-shrink: 1;
+    font-size: 3vh;
+    border: 2px solid red;
+    text-align: center;
+    background: linear-gradient(90deg, lightgreen, cyan);
+}
+
+#instrToSplash-btn:active {
+    opacity: 0.5;
 }

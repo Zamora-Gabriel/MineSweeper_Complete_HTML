@@ -102,7 +102,6 @@ export default class Game {
 
     run() {
         //run the game
-
         while (!this.done) {
             this.reset();
             this.render();
@@ -110,6 +109,7 @@ export default class Game {
         }
         this.done = false;
     }
+
     update(seconds) {
 
         //Check Winning conditions
@@ -122,24 +122,27 @@ export default class Game {
     }
 
     timing() {
-        let secondCount = this.board.timecount;
-        const $timerE1 = $("#timer-count");
-        //Predefined objects
-        let timer = window.setInterval(() => {
-            //TODO: what do we do each second - update the timer
-            $timerE1.html(secondCount);
-            secondCount--;
 
-            this.update(secondCount);
-            if (this.gameOver) {
-                window.clearInterval(timer);
-                this.scorePage.runscore(false);
-            }
-            if (this.wonFlag) {
-                window.clearInterval(timer);
-                this.scorePage.runscore(this.wonFlag);
-            }
-        }, 1000);
+        if (!this.sizerr) {
+            let secondCount = this.board.timecount;
+            const $timerE1 = $("#timer-count");
+            //Predefined objects
+            let timer = window.setInterval(() => {
+                //TODO: what do we do each second - update the timer
+                $timerE1.html(secondCount);
+                secondCount--;
+
+                this.update(secondCount);
+                if (this.gameOver) {
+                    window.clearInterval(timer);
+                    this.scorePage.runscore(false);
+                }
+                if (this.wonFlag) {
+                    window.clearInterval(timer);
+                    this.scorePage.runscore(this.wonFlag);
+                }
+            }, 1000);
+        }
     }
 
 
@@ -148,10 +151,11 @@ export default class Game {
         // Change grid size according to user's input
         this.resizeGrid();
 
-        //Update mine counter
-        this.changeMineCount();
 
         if (!this.sizerr) {
+            //Update mine counter
+            this.changeMineCount();
+
             // Generate the playfield
             this.minefield = new Minefield(this.board.size, this.minecount);
             this.generateBoard();
@@ -468,7 +472,7 @@ export default class Game {
     //Hide splash screen and show game screen
     hidesplash() {
         document.querySelector("#splash-page").hidden = true;
-        document.querySelector("#splash-page").classList.remove("fixing-pos");
+        document.querySelector("#splash-show").classList.remove("fixing-pos");
         document.querySelector("#minesw-game").hidden = false;
         document.querySelector("#board").classList.add("fixing-pos");
     }

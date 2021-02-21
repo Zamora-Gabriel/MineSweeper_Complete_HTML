@@ -23,7 +23,7 @@ export default class Splash {
         document.querySelector("#score-page").hidden = true;
         document.querySelector("#score-show").classList.remove("fixing-pos");
         document.querySelector("#splash-page").hidden = false;
-        document.querySelector("#splash-page").classList.add("fixing-pos");
+        document.querySelector("#splash-show").classList.add("fixing-pos");
     }
 
     retbttn() {
@@ -33,6 +33,24 @@ export default class Splash {
         retElement.addEventListener('click', event => {
             this.bttnclicked = true;
             this.splashrun();
+        });
+    }
+
+    returnFromInstr() {
+        //hide instr page, show splash page
+        document.querySelector("#instr-page").hidden = true;
+        document.querySelector("#instr-show").classList.remove("fixing-pos");
+        document.querySelector("#splash-page").hidden = false;
+        document.querySelector("#splash-show").classList.add("fixing-pos");
+    }
+
+    instrRetBttn() {
+        //Check return button in Instructions page
+        let retElement = document.querySelector("#instrToSplash-btn");
+
+        retElement.addEventListener('click', event => {
+            this.bttnclicked = true;
+            this.returnFromInstr();
         });
     }
 }

@@ -1,3 +1,5 @@
+<!--Copyright (C) 2021 Gabriel Zamora-->
+
 <!DOCTYPE html>
 <html>
 
@@ -59,25 +61,56 @@
             </div>
 
         </section>
-        <!--Splash page-->
-        <section id="splash-page" class="fixing-pos">
 
-            <center>
-                <h1>MINESWEEPER</h1>
-            </center>
-            <form id="select-size">
-                <!-- Limit user to 4 levels (grid sizes)-->
-                <div>Select grid size:</div>
-                <input type="radio" id="lvl-1" name="lvl-option" value="4">
-                <label for="too-easy">4x4</label><br>
-                <input type="radio" id="lvl-2" name="lvl-option" value="8">
-                <label for="easy">8x8</label><br>
-                <input type="radio" id="lvl-3" name="lvl-option" value="15">
-                <label for="normal">15x15</label><br>
-                <input type="radio" id="lvl-4" name="lvl-option" value="30">
-                <label for="hard">24x30</label>
-            </form>
-            <button id="play-btn">Start Game</button>
+        <!-- Instruction page -->
+        <section id="instr-page">
+            <div id="instr-show">
+                <!-- page that shows the score or game over -->
+                <div id="instr-details">
+                    Select the size of grid you want to play in and press the play button.
+                    <br>
+                    <br>Left click on cells to reveal their contents but
+                    <br>be careful with mines, since once you find one it's game over.
+                    <br>
+                    <br>In order to win you need to flag each of the mines, and
+                    <br>to do that right click on the cell that possibly could have a mine.
+                    <br>
+                    <br>You only have limited flags so use them wisely; however, you can unflag a cell
+                    <br>to recover one flag by right clicking on a flagged cell.
+                    <br>
+                    <br>Try to score as less as you can since the number of clicks is your score, a lower score,
+                    <br>less clicks took the player to win.
+                </div>
+                <button id="instrToSplash-btn">Return to splash</button>
+            </div>
+        </section>
+
+        <!--Splash page-->
+        <section id="splash-page">
+            <div id="splash-show" class="fixing-pos">
+                <center>
+                    <h1>MINESWEEPER</h1>
+                </center>
+                <form id="select-size">
+                    <!-- Limit user to 4 levels (grid sizes)-->
+                    <div>Select grid size:</div>
+                    <input type="radio" id="lvl-1" name="lvl-option" value="4">
+                    <label for="too-easy">4x4</label><br>
+                    <input type="radio" id="lvl-2" name="lvl-option" value="8">
+                    <label for="easy">8x8</label><br>
+                    <input type="radio" id="lvl-3" name="lvl-option" value="15">
+                    <label for="normal">15x15</label><br>
+                    <input type="radio" id="lvl-4" name="lvl-option" value="30">
+                    <label for="hard">24x30</label>
+                </form>
+                <button id="play-btn">Start Game</button>
+                <br>
+                <button id="instr-btn">Instructions</button>
+
+                <center>
+                    <h6>Copyright (C) 2021 Gabriel Zamora</h6>
+                </center>
+            </div>
         </section>
     </section>
 

@@ -4,7 +4,6 @@
 export default class Score {
     constructor() {
 
-        this.overclicked = false;
     }
 
     runscore(wonFlag) {
